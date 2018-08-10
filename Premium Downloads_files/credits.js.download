@@ -1,0 +1,421 @@
+if([
+	"top.forumcommunity.net", 
+	"top.blogfree.net", 
+	"chat.forumfree.it", 
+	"supporto.forumfree.it", 
+	"skinlab.forumfree.it",
+	"ffboard.forumfree.it",
+	"ffmagazine.forumfree.it"
+	].indexOf(document.domain) === -1) {
+	$(document).ready(function() {
+		// Non rimuovere questo setTimeout... fidati.
+		setTimeout(function(){
+			window.FF_CREDITS_ISDESKTOP = ((document.querySelector("aside#Left") === null) && (document.querySelector("header.header") === null) && (document.querySelector("nav > ul.menuwrap") === null) && (document.querySelector("body.mobile") === null));
+
+			window.addToFooter = function(txt, canRetry, parentNodeDiv) {
+				if(FF_CREDITS_ISDESKTOP) {
+					parentNodeDiv = (typeof(parentNodeDiv) !== "undefined");
+					var foot = ("BackCompat" == document.compatMode ? ".navsub[style='line-height:170%']" : ".footer");
+					var ff_foot = document.querySelector(foot+' a[href="https://www.forumfree.it/"]');
+					var fc_foot = document.querySelector(foot+' a[href="https://www.forumcommunity.net/"]');
+					var bf_foot = document.querySelector(foot+' a[href="https://www.blogfree.net/"]');
+					var dev_foot;
+					if((ff_foot != null) || (fc_foot != null) || (bf_foot != null)) {
+						if(ff_foot != null) {
+							dev_foot = ff_foot;
+						} else if(fc_foot != null) {
+							dev_foot = fc_foot;
+						} else if(bf_foot != null) {
+							dev_foot = bf_foot;
+						}
+						if(parentNodeDiv) {
+							dev_foot.parentNode.querySelector('div').insertAdjacentHTML("afterend", txt);
+						} else {
+							dev_foot.insertAdjacentHTML("afterend", txt);
+						}
+					} else if(canRetry == true) {
+						setTimeout(function(txt){ window.addToFooter(txt, false); }, 1000, txt);
+					} else if(document.querySelector(foot) != null) {
+						document.querySelector(foot).insertAdjacentHTML("beforeend", txt);
+					}
+				} else {
+					var dev_foot = document.querySelector('footer a[onclick="return disableFFM()"]');
+					if(dev_foot != null) {
+						dev_foot.insertAdjacentHTML("afterend", txt);
+					} else if(canRetry == true) {
+						setTimeout(function(txt){ window.addToFooter(txt, false); }, 1000, txt);
+					} else if(document.querySelector(foot) != null) {
+						document.querySelector(foot).insertAdjacentHTML("beforeend", txt);
+					}
+				}
+			};
+
+			if (typeof window.FFBcredits === "undefined") {window.FFBcredits = [];} else {window.FFBcredits=window.FFBcredits.filter(function() {return true});}
+			if (typeof window.FFMcredits === "undefined") {window.FFMcredits = [];} else {window.FFMcredits=window.FFMcredits.filter(function() {return true});}
+			if (typeof FF_credits === "undefined") {FF_credits = {};}
+
+			function removeDuplicates(originalArray, prop) {
+				var newArray = [];
+				var lookupObject  = {};
+
+				for(var i in originalArray) {
+					lookupObject[originalArray[i][prop]] = originalArray[i];
+				}
+
+				for(i in lookupObject) {
+					newArray.push(lookupObject[i]);
+				}
+				return newArray.filter(function() {return true});
+			}
+
+			window.FFMcredits=removeDuplicates(window.FFMcredits, "sId");
+			window.FFMcredits=removeDuplicates(window.FFMcredits, "sName");
+
+			window.FFBcredits=removeDuplicates(window.FFBcredits, "sId");
+			window.FFBcredits=removeDuplicates(window.FFBcredits, "sName");
+
+			var FFCredits = {
+				FFB: (typeof window.FFBcredits === "undefined") ? [] : (window.FFBcredits.filter(function() {return true})),
+				FFM: (typeof window.FFMcredits === "undefined") ? [] : (window.FFMcredits.filter(function() {return true})),
+				FF_Other: (typeof FF_credits === "undefined") ? {} : FF_credits,
+				ALL: [],
+				popupStyle: '.FFB_popup_credits, .FFB_popup_credits > * {animation:none !important;animation-delay:0 !important;animation-direction:normal !important;animation-duration:0 !important;animation-fill-mode:none !important;animation-iteration-count:1 !important;animation-name:none !important;animation-play-state:running !important;animation-timing-function:ease !important;backface-visibility:visible !important;background:0 !important;background-attachment:scroll !important;background-clip:border-box !important;background-color:transparent !important;background-image:none !important;background-origin:padding-box !important;background-position:0 0 !important;background-position-x:0 !important;background-position-y:0 !important;background-repeat:repeat !important;background-size:auto auto !important;border:0 !important;border-style:none !important;border-width:medium !important;border-color:inherit !important;border-bottom:0 !important;border-bottom-color:inherit !important;border-bottom-left-radius:0 !important;border-bottom-right-radius:0 !important;border-bottom-style:none !important;border-bottom-width:medium !important;border-collapse:separate !important;border-image:none !important;border-left:0 !important;border-left-color:inherit !important;border-left-style:none !important;border-left-width:medium !important;border-radius:0 !important;border-right:0 !important;border-right-color:inherit !important;border-right-style:none !important;border-right-width:medium !important;border-spacing:0 !important;border-top:0 !important;border-top-color:inherit !important;border-top-left-radius:0 !important;border-top-right-radius:0 !important;border-top-style:none !important;border-top-width:medium !important;bottom:auto !important;box-shadow:none !important;box-sizing:content-box !important;caption-side:top !important;clear:none !important;clip:auto !important;color:inherit !important;columns:auto !important;column-count:auto !important;column-fill:balance !important;column-gap:normal !important;column-rule:medium none currentColor !important;column-rule-color:currentColor !important;column-rule-style:none !important;column-rule-width:none !important;column-span:1 !important;column-width:auto !important;content:normal !important;counter-increment:none !important;counter-reset:none !important;cursor:auto !important;direction:ltr !important;display:inline !important;empty-cells:show !important;float:none !important;font:normal !important;font-family:inherit !important;font-size:medium !important;font-style:normal !important;font-variant:normal !important;font-weight:normal !important;height:auto !important;hyphens:none !important;left:auto !important;letter-spacing:normal !important;line-height:normal !important;list-style:none !important;list-style-image:none !important;list-style-position:outside !important;list-style-type:disc !important;margin:0 !important;margin-bottom:0 !important;margin-left:0 !important;margin-right:0 !important;margin-top:0 !important;max-height:none !important;max-width:none !important;min-height:0 !important;min-width:0 !important;opacity:1 !important;orphans:0 !important;outline:0 !important;outline-color:invert !important;outline-style:none !important;outline-width:medium !important;overflow:visible !important;overflow-x:visible !important;overflow-y:visible !important;padding:0 !important;padding-bottom:0 !important;padding-left:0 !important;padding-right:0 !important;padding-top:0 !important;page-break-after:auto !important;page-break-before:auto !important;page-break-inside:auto !important;perspective:none !important;perspective-origin:50% 50% !important;position:static !important;quotes:\'\201C\' \'\201D\' \'\2018\' \'\2019\' !important;right:auto !important;tab-size:8 !important;table-layout:auto !important;text-align:inherit !important;text-align-last:auto !important;text-decoration:none !important;text-decoration-color:inherit !important;text-decoration-line:none !important;text-decoration-style:solid !important;text-indent:0 !important;text-shadow:none !important;text-transform:none !important;top:auto !important;transform:none !important;transform-style:flat !important;transition:none !important;transition-delay:0s !important;transition-duration:0s !important;transition-property:none !important;transition-timing-function:ease !important;unicode-bidi:normal !important;vertical-align:baseline !important;visibility:visible !important;white-space:normal !important;widows:0 !important;width:auto !important;word-spacing:normal !important;z-index:auto} .FFB_popup_credits { position: relative !important;font-size: inherit !important;color: inherit !important;cursor: default !important;display: inline-block !important;}  .FFB_popup_credits > a {font-size: inherit !important;font-weight: bold !important;color: inherit !important;cursor: default !important} .FFB_popup_credits > div { font-family: Verdana, Tahoma, Arial, Sans-serif !important;font-size: 10.5px !important;font-weight: normal !important;color: rgb(119, 119, 119) !important;position: absolute !important;overflow: hidden !important;bottom: 100% !important;left: -350% !important;display: block !important;border-radius: 4px !important;transition: all 1.5s !important;visibility: hidden !important;width: 230px !important;height: 200px !important;} .FFB_popup_credits > div > div { opacity: 0 !important;background: #FFF !important;box-sizing: border-box !important;width: 100.1% !important;} .FFB_popup_credits > div:before { position: absolute !important;width: 1px !important;height: 1px !important;background: white !important;content: "" !important;bottom: 10px !important;left: 50% !important;top: 95% !important;color: #fff !important;border-radius: 50% !important;-webkit-transition: all 1.2s cubic-bezier(0.215, 0.61, 0.355, 1) !important;transition: all 1.2s cubic-bezier(0.215, 0.61, 0.355, 1) !important;} .FFB_popup_credits:hover > div, .FFB_popup_credits:hover > div,  .FFB_popup_credits > div:hover {z-index: 2147483646 !important; display: block !important;visibility: visible !important;transition: all 1.2s !important; } .FFB_popup_credits:hover > div:before, .FFB_popup_credits > div:hover:before { height: 2000px !important;width: 2000px !important;border-radius: 50% !important;top: 50% !important;left: 50% !important;margin-left: -1000px !important;margin-top: -1000px !important;display: block !important;-webkit-transition: all 1.2s cubic-bezier(0.49, 0.24, 0.54, 0.49) !important;transition: all 1.2s cubic-bezier(0.49, 0.24, 0.54, 0.49) !important;} .FFB_popup_credits:hover > div > div, .FFB_popup_credits > div:hover > div { position: relative !important;z-index: 1 !important;opacity: 1 !important;-webkit-transition: all 1.2s cubic-bezier(0.49, 0.24, 0.54, 0.49) !important;transition: all 600ms cubic-bezier(0.49, 0.24, 0.54, 0.49) !important;} .FFB_popup_credits:hover > div > div > h3, .FFB_popup_credits > div:hover > div > h3 { line-height: 19px !important;text-align: center !important;font-size: 13px !important;font-weight: bold !important;background: none repeat scroll 0% 0% rgba(6, 6, 6, 0.1) !important;margin: 0px !important;width: 100.1% !important;height:20px !important;color: rgb(119, 119, 119) !important;padding: 5px !important;text-shadow: rgba(255, 255, 255, 0.541176) 0px 1px 0px !important;} .FFB_popup_credits:hover > div > div > ul, .FFB_popup_credits > div:hover > div > ul {height: 170px !important;overflow-y: auto !important;overflow-x: hidden !important;padding: 0px !important;margin: 0px !important;text-align: left !important;padding-left: 10px !important;} .FFB_popup_credits:hover > div > div > ul > *, .FFB_popup_credits > div:hover > div > ul > * { list-style-type: none !important; padding: 5px 7px !important; border: dashed rgba(0, 0, 0, 0.0980392) !important; border-width: 0px 0px 1px 0px !important; margin-left: -8px !important; width: 100%; display: block; color: #999;} .FFB_popup_credits:hover > div > div > ul a, .FFB_popup_credits > div:hover > div > ul a { color: rgb(85, 85, 85) !important;text-shadow: none !important;text-decoration: none !important;}'
+			}
+			
+			if((FFCredits.FFB.length !== 0) || (FFCredits.FFM.length !== 0) || (FFCredits.FF_Other.length !== 0)) {
+				window.addToFooter('<style type="text/css">'+FFCredits.popupStyle+'</style>', true);
+				var index, len, FF_FOOT_TXT = '';
+
+				FFCredits.ALL.push({"NAME": "ForumFree Board", "LINK": "//ffboard.forumfree.it/", "SCRIPTS":FFCredits.FFB.slice(0)});
+				FFCredits.ALL.push({"NAME": "ForumFree Magazine", "LINK": "//ffmagazine.forumfree.it/", "SCRIPTS":FFCredits.FFM.slice(0)});
+
+				for (var key in FFCredits.FF_Other) {
+					if (!FFCredits.FF_Other.hasOwnProperty(key)) continue;
+					if ((typeof(FFCredits.FF_Other[key]["FORUM_NAME"]) == "string") && (typeof(FFCredits.FF_Other[key]["FORUM_LINK"]) == "string") && (typeof(FFCredits.FF_Other[key]["SCRIPTS"]) == "object")) {
+						FFCredits.ALL.push({"NAME": FFCredits.FF_Other[key]["FORUM_NAME"], "LINK": FFCredits.FF_Other[key]["FORUM_LINK"], "SCRIPTS":FFCredits.FF_Other[key]["SCRIPTS"]});
+					}
+				}
+
+				FFCredits.ALL.sort(function(a, b) { return ((b.SCRIPTS.length - a.SCRIPTS.length) == 0) ? b.NAME < a.NAME : b.SCRIPTS.length - a.SCRIPTS.length; });
+				if(FF_CREDITS_ISDESKTOP) {
+					for (index = 0, len = FFCredits.ALL.length; index < len; index++) {
+						if(FFCredits.ALL[index].SCRIPTS.length != 0) {
+							FFCredits.ALL[index]["FOOT_TXT"] = '<a href="'+FFCredits.ALL[index]["LINK"]+'" style="color:#E12"><strong>'+FFCredits.ALL[index]["NAME"]+'</strong></a>&nbsp;<span class="FFB_popup_credits"><a href="javascript:void(0);">(elenco)</a><div><div><h3>Elenco scripts:</h3><ul>';
+							for (var a = 0; a < FFCredits.ALL[index].SCRIPTS.length; a++) {
+								if ((typeof(FFCredits.ALL[index]["SCRIPTS"][a].sId) != "undefined") && (typeof(FFCredits.ALL[index]["SCRIPTS"][a].sName) != "undefined") && (typeof(FFCredits.ALL[index]["SCRIPTS"][a].aId) != "undefined") && (typeof(FFCredits.ALL[index]["SCRIPTS"][a].aName) != "undefined")) {
+									if(FFCredits.ALL[index]["SCRIPTS"][a].sId === 1) {
+										sid = "";
+									} else {
+										sid = "?t=" + FFCredits.ALL[index]["SCRIPTS"][a].sId;
+									}
+									FFCredits.ALL[index]["FOOT_TXT"] = FFCredits.ALL[index]["FOOT_TXT"] + '<li><strong><a href="'+FFCredits.ALL[index]["LINK"] + sid + '">' + FFCredits.ALL[index]["SCRIPTS"][a].sName + '</a></strong> realizzato da <strong><a href="'+FFCredits.ALL[index]["LINK"]+'?act=Profile&MID=' + FFCredits.ALL[index]["SCRIPTS"][a].aId + '">' + FFCredits.ALL[index]["SCRIPTS"][a].aName + '</a></strong></li>';
+								}
+							}
+							FFCredits.ALL[index]["FOOT_TXT"] = FFCredits.ALL[index]["FOOT_TXT"] + '</ul></div></div></span>';
+							FF_FOOT_TXT = (FF_FOOT_TXT == '') ? '<br><a style="color:#4085C8" href="javascript:void(0)"><strong>Scripts</strong></a> realizzati da: '+FFCredits.ALL[index]["FOOT_TXT"] : FF_FOOT_TXT + ' - ' + FFCredits.ALL[index]["FOOT_TXT"];
+						}
+					}
+					window.addToFooter(FF_FOOT_TXT, true);
+				} else {
+					/* for (index = 0, len = FFCredits.ALL.length; index < len; index++) {
+						if(FFCredits.ALL[index].SCRIPTS.length != 0) {
+							FFCredits.ALL[index]["FOOT_TXT"] = '<a href="'+FFCredits.ALL[index]["LINK"]+'" style="color:#E12"><strong>'+FFCredits.ALL[index]["NAME"]+'</strong></a>';
+							FF_FOOT_TXT = (FF_FOOT_TXT == '') ? '<br><a style="color:#4085C8" href="javascript:void(0)"><strong>Scripts</strong></a> realizzati da: '+FFCredits.ALL[index]["FOOT_TXT"] : FF_FOOT_TXT + ' - ' + FFCredits.ALL[index]["FOOT_TXT"];
+						}
+					} */
+					var html = '';
+					for (index = 0, len = FFCredits.ALL.length; index < len; index++) {
+						if(FFCredits.ALL[index].SCRIPTS.length != 0) {
+							for (var a = 0; a < FFCredits.ALL[index].SCRIPTS.length; a++) {
+								if ((typeof(FFCredits.ALL[index]["SCRIPTS"][a].sId) != "undefined") && (typeof(FFCredits.ALL[index]["SCRIPTS"][a].sName) != "undefined") && (typeof(FFCredits.ALL[index]["SCRIPTS"][a].aId) != "undefined") && (typeof(FFCredits.ALL[index]["SCRIPTS"][a].aName) != "undefined")) {
+									if(FFCredits.ALL[index]["SCRIPTS"][a].sId === 1) {
+										sid = "";
+									} else {
+										sid = "?t=" + FFCredits.ALL[index]["SCRIPTS"][a].sId;
+									}
+									html += '<li><a target="_blank" href="'+FFCredits.ALL[index]["LINK"] + sid + '"><strong>' + FFCredits.ALL[index]["SCRIPTS"][a].sName + '</strong> di <strong>' + FFCredits.ALL[index]["SCRIPTS"][a].aName + '</strong></a></li>';
+								}
+							}
+						}
+					}
+					document.querySelector('.sidebar #about-us').insertAdjacentHTML('afterEnd', '<li id="about-scripts"> <span class="side_title" id="st50">Scripts installati</span> <ul class="submenu"> '+html+'  </ul> </li>');
+				}
+			}
+
+
+
+
+			// Crediti
+			if(typeof window.FFM === "undefined") {
+				window.FFM = {
+					addCredits: function(a, d) {
+						if (typeof window.FFMcredits === "undefined") {
+							window.FFMcredits = [];
+						};
+						if (typeof window.FFBcredits === "undefined") {
+							window.FFBcredits = [];
+						};
+						window.FFMcredits.push({
+							sId: a.id,
+							sName: a.name,
+							aId: d.id,
+							aName: d.nickname
+						})
+					}
+				}
+			}
+
+
+			if(!FF_CREDITS_ISDESKTOP) { return; }
+
+
+
+			// Skin
+			if((typeof(window.isffbskin) != "undefined") && (!((document.querySelector("#ffb_skincredits") !== null) && (document.querySelector('#ffb_skincredits a[href*="//ffboard.forumfree.it/"]') !== null)))) { //  && ($("#ffb_skincredits").is(":visible")) && ($("#ffb_skincredits").css('visibility') !== 'hidden')
+				window.addToFooter('<br><a style="color:#E12" href="javascript:void(0)"><strong>Skin</strong></a> realizzata da <a href="//ffboard.forumfree.it/" style="color:#4085C8"><strong>ForumFree Board</strong></a>', true);
+			}
+
+
+
+
+
+			// Pop
+			(({
+				userId: (Number((document.querySelector(".menuwrap a[href*='act=Search&CODE=02&MID=']") !== null) ? document.querySelector(".menuwrap a[href*='act=Search&CODE=02&MID=']").getAttribute("href").split("act=Search&CODE=02&MID=")[1] : ((document.querySelector(".menuwrap a[href*='&useridsearch=']") !== null) ? document.querySelector(".menuwrap a[href*='&useridsearch=']").getAttribute("href").split("&useridsearch=")[1] : ((document.querySelector('.user_details a.nickname[href]') !== null) ? document.querySelector('.user_details a.nickname[href]').getAttribute("href").split("MID=")[1] : "0")))),
+				userCircuit: ((document.domain.split('.')[document.domain.split('.').length-2]).toLowerCase()),
+				circuitType: ((document.domain.split('.')[document.domain.split('.').length-1]).toLowerCase()),
+				ffuid: function() {
+					var ffuid = 'FF0';
+
+					switch (this.userCircuit)  {
+						case "blogfree":
+							ffuid = 'BF' + this.userId;
+							break;
+						case "forumcommunity":
+							ffuid = 'FC' + this.userId;
+							break;
+						case "forumfree":
+							ffuid = 'FF' + this.userId;
+							break;
+					}
+
+					return ffuid;
+				},
+
+
+				isLocalStorageSupported: function() {
+					var mod = 'checkLocalSupport';
+					try {
+						localStorage.setItem(mod, mod);
+						localStorage.removeItem(mod);
+						return true;
+					} catch(e) {
+						return false;
+					}
+				},
+
+				isFFpop: function() {
+					return document.querySelector('script[src*="http://www.onclicktop.com/"]') !== null;
+				},
+				isGuest: function() {
+					return this.userId === 0;
+				},
+				isMobile: function() {
+					// Mobile HTML
+					if ((document.querySelector("aside#Left") !== null) ||
+					(document.querySelector("header.header") !== null) ||
+					(document.querySelector("nav > ul.menuwrap") !== null) ||
+					(document.querySelector("body.mobile") !== null)) {
+						return true;
+					}
+					if (document.querySelector('.menuwrap .icon a[rel][title][href="/m/"]') !== null) {
+						return true;
+					}
+					if(typeof(navigator.userAgent||navigator.vendor||window.opera) !== "undefined") {
+						// Utente App
+						if((navigator.userAgent||navigator.vendor||window.opera).match(/FFApp/gim) !== null) {
+							return true;
+						}
+						// Mobile User Agent								
+						if (/(android|bb\d+|meego).+mobile|avantgo|bada\/|blackberry|blazer|compal|elaine|fennec|hiptop|iemobile|ip(hone|od)|iris|kindle|lge |maemo|midp|mmp|mobile.+firefox|netfront|opera m(ob|in)i|palm( os)?|phone|p(ixi|re)\/|plucker|pocket|psp|series(4|6)0|symbian|treo|up\.(browser|link)|vodafone|wap|windows ce|xda|xiino|android|ipad|playbook|silk/i.test(navigator.userAgent || navigator.vendor || window.opera)) {
+							return true;
+						}
+						if(/1207|6310|6590|3gso|4thp|50[1-6]i|770s|802s|a wa|abac|ac(er|oo|s\-)|ai(ko|rn)|al(av|ca|co)|amoi|an(ex|ny|yw)|aptu|ar(ch|go)|as(te|us)|attw|au(di|\-m|r |s )|avan|be(ck|ll|nq)|bi(lb|rd)|bl(ac|az)|br(e|v)w|bumb|bw\-(n|u)|c55\/|capi|ccwa|cdm\-|cell|chtm|cldc|cmd\-|co(mp|nd)|craw|da(it|ll|ng)|dbte|dc\-s|devi|dica|dmob|do(c|p)o|ds(12|\-d)|el(49|ai)|em(l2|ul)|er(ic|k0)|esl8|ez([4-7]0|os|wa|ze)|fetc|fly(\-|_)|g1 u|g560|gene|gf\-5|g\-mo|go(\.w|od)|gr(ad|un)|haie|hcit|hd\-(m|p|t)|hei\-|hi(pt|ta)|hp( i|ip)|hs\-c|ht(c(\-| |_|a|g|p|s|t)|tp)|hu(aw|tc)|i\-(20|go|ma)|i230|iac( |\-|\/)|ibro|idea|ig01|ikom|im1k|inno|ipaq|iris|ja(t|v)a|jbro|jemu|jigs|kddi|keji|kgt( |\/)|klon|kpt |kwc\-|kyo(c|k)|le(no|xi)|lg( g|\/(k|l|u)|50|54|\-[a-w])|libw|lynx|m1\-w|m3ga|m50\/|ma(te|ui|xo)|mc(01|21|ca)|m\-cr|me(rc|ri)|mi(o8|oa|ts)|mmef|mo(01|02|bi|de|do|t(\-| |o|v)|zz)|mt(50|p1|v )|mwbp|mywa|n10[0-2]|n20[2-3]|n30(0|2)|n50(0|2|5)|n7(0(0|1)|10)|ne((c|m)\-|on|tf|wf|wg|wt)|nok(6|i)|nzph|o2im|op(ti|wv)|oran|owg1|p800|pan(a|d|t)|pdxg|pg(13|\-([1-8]|c))|phil|pire|pl(ay|uc)|pn\-2|po(ck|rt|se)|prox|psio|pt\-g|qa\-a|qc(07|12|21|32|60|\-[2-7]|i\-)|qtek|r380|r600|raks|rim9|ro(ve|zo)|s55\/|sa(ge|ma|mm|ms|ny|va)|sc(01|h\-|oo|p\-)|sdk\/|se(c(\-|0|1)|47|mc|nd|ri)|sgh\-|shar|sie(\-|m)|sk\-0|sl(45|id)|sm(al|ar|b3|it|t5)|so(ft|ny)|sp(01|h\-|v\-|v )|sy(01|mb)|t2(18|50)|t6(00|10|18)|ta(gt|lk)|tcl\-|tdg\-|tel(i|m)|tim\-|t\-mo|to(pl|sh)|ts(70|m\-|m3|m5)|tx\-9|up(\.b|g1|si)|utst|v400|v750|veri|vi(rg|te)|vk(40|5[0-3]|\-v)|vm40|voda|vulc|vx(52|53|60|61|70|80|81|83|85|98)|w3c(\-| )|webc|whit|wi(g |nc|nw)|wmlb|wonu|x700|yas\-|your|zeto|zte\-/i.test((navigator.userAgent || navigator.vendor || window.opera).substr(0, 4))) {
+							return true;
+						}
+					}
+					return false;
+				},
+				isBot: function() {
+					if(typeof(navigator.userAgent||navigator.vendor||window.opera) !== "undefined") {
+						if((navigator.userAgent||navigator.vendor||window.opera).match(/bot|googlebot|crawler|spider|robot|crawling/i) !== null) {
+							return true;
+						}
+					}
+					return false;
+				},
+
+				disableAdsName: 'ffads_enabled',
+				disableAdsScript: function() {
+					var d = new Date();
+					d.setTime(d.getTime() + (365*24*60*60*1000));
+
+					document.cookie = this.disableAdsName + "=0;expires=" + d.toUTCString() + ";path=/;domain="+this.userCircuit+"."+this.circuitType;
+
+					if(this.isLocalStorageSupported()) {
+						localStorage.setItem(this.disableAdsName, d.getTime());
+					}
+				},
+				isAdsDisabled: function() {
+					if(typeof window.ffscript_ads !== "undefined") {
+						return true;
+					}
+					if(document.cookie.indexOf(this.disableAdsName + "=") !== -1) {
+						return true;
+					}
+					if (this.isLocalStorageSupported()) {
+						if (localStorage.getItem(this.disableAdsName) !== null) {
+							if(Number(localStorage.getItem(this.disableAdsName)) > (new Date()).getTime()) {
+								return true;
+							}
+						}
+					}
+					// Dal pannello web
+					if (!(((true) && (document.domain !== "parliamodicrociere.forumfree.it") && (document.domain !== "mypersonalblog1.blogfree.net") && (this.ffuid() !== "FF12408514") && (this.ffuid() !== "FF5041309")))) {
+						return true;
+					}
+					return false;
+				},
+
+				isFFBTurn: function(ffb_c, ffm_c) {
+					var ffbl = (ffb_c.filter(function() {return true})).length,
+					ffml = (ffm_c.filter(function() {return true})).length;
+
+					var obj_tmp = {
+						day: (new Date()).getDate(),
+						execTime: 0,
+						thisIs: null // true=ffm, false=ffb
+					}
+					if(localStorage.getItem("ffs_ads_data") === null) {
+						localStorage.setItem("ffs_ads_data", JSON.stringify(obj_tmp));
+					}
+					var ffs_ads_data = JSON.parse(localStorage.getItem("ffs_ads_data"));
+					if(obj_tmp.day !== ffs_ads_data.day) {
+						localStorage.setItem("ffs_ads_data", JSON.stringify(obj_tmp));
+						ffs_ads_data = obj_tmp;
+					}
+					if(ffs_ads_data.execTime !== -1) {
+						ffs_ads_data.timeNow = (Math.floor(new Date().getTime()/1000));
+						if(ffs_ads_data.execTime === 0) {
+							if(ffml > ffbl) {
+								ffs_ads_data.thisIs = true;
+							} else if(ffbl > ffml) {
+								ffs_ads_data.thisIs = false;
+							} else {
+								ffs_ads_data.thisIs = Math.random()*1000000000000000;
+								ffs_ads_data.thisIs = (ffs_ads_data.thisIs % 2);
+								ffs_ads_data.thisIs = (ffs_ads_data.thisIs > 1);
+							}
+							ffs_ads_data.execTime = ffs_ads_data.timeNow;
+						}
+						ffs_ads_data.timePassed = ((ffs_ads_data.timeNow-10) > ffs_ads_data.execTime); // 21600
+						if(ffs_ads_data.timePassed) {
+							ffs_ads_data.thisIs = !ffs_ads_data.thisIs;
+							ffs_ads_data.execTime = -1;
+						}
+						localStorage.setItem("ffs_ads_data", JSON.stringify(ffs_ads_data));
+						return (ffs_ads_data.thisIs === false);
+					}
+					return false;
+				},
+
+				ads: {
+					ffm: function(circuit) {
+						switch (circuit)  {
+							case "forumfree":
+								window.wid = '341058';
+								window.uid = '159174';
+								break;
+							case "forumcommunity":
+								window.wid = '341057';
+								window.uid = '159174';
+								break;
+							case "blogfree":
+								window.wid = '341056';
+								window.uid = '159174';
+								break;
+							default:
+								window.wid = false;
+								window.uid = false;
+						}
+						if(window.wid !== false) {
+							if(document.querySelector('script[src="//cdn.popcash.net/pop.js"]') === null) {
+								var a = document.createElement("script");
+								a.setAttribute("type", "text/javascript");
+								a.setAttribute("src", "//cdn.popcash.net/pop.js");
+								document.getElementsByTagName("head")[0].appendChild(a);
+							}
+							console.log('[FF ads] M');
+						}
+					},
+					ffb: function(circuit) {
+						switch (circuit)  {
+							case "forumfree":
+								var scriptLink = '//go.oclaserver.com/apu.php?zoneid=1735633';
+								break;
+							case "forumcommunity":
+								var scriptLink = '//go.onclasrv.com/apu.php?zoneid=1735632';
+								break;
+							case "blogfree":
+								var scriptLink = '//go.pub2srv.com/apu.php?zoneid=1735631';
+								break;
+							default:
+								var scriptLink = false;
+						}
+						if(scriptLink !== false) {
+							if(document.querySelector('script[src="' + scriptLink + '"]') === null) {
+								var a = document.createElement("script");
+								a.setAttribute("type", "text/javascript");
+								a.setAttribute("src", scriptLink);
+								document.getElementsByTagName("head")[0].appendChild(a);
+							}
+							console.log('[FF ads] B');
+						}
+					}
+				},
+
+				init: function(ffb_c, ffm_c) {
+
+					if ((!this.isAdsDisabled()) && (!this.isFFpop())) {
+
+						if((!this.isBot()) &&
+						(this.isGuest()) &&
+						(!this.isMobile())) {
+
+							window.ffscript_ads = 1;
+
+							if(this.isFFBTurn(ffb_c, ffm_c)) {
+								this.ads.ffb(this.userCircuit);
+							} else {
+								this.ads.ffm(this.userCircuit);
+							}
+
+						} else {
+							this.disableAdsScript();
+						}
+
+					} 
+				}
+			}).init(window.FFBcredits, window.FFMcredits));
+
+
+		}, 100);
+	});
+}
+
+
+
+
+
+
+

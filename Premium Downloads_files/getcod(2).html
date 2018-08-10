@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<!-- saved from url=(0338)https://codicebusiness.shinystat.com/cgi-bin/getcod.cgi?IFSSA=yes&IDS=18294099&SSA=348e334de42d49bba2790ee7869e68f9&RF=https%3A%2F%2Fimperivm-world.forumcommunity.net%2F%3Fpag%3Dpremiumdownloads&HR=https%3A%2F%2Fsrv.juiceadv.com%2Fbanner_iframe.asp%3Fuser%3D77%26tipo%3D22&TUP=0&PTUP=&FV=5&UV=0&US=0&DUP=1533873933&PCNL=&NV=0&RM=823481625 -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<script type="text/javascript" id="ssa" src="./as(1).cgi"></script></head>
+<body>
+<script>
+function ssaE(d){if (typeof(encodeURIComponent) == 'function') {return encodeURIComponent(d);} else {return escape(d);}}
+function ssaCls(nm,vl){try{ sessionStorage.setItem(nm,vl);localStorage.setItem(nm,vl);}catch(e_r){}}
+function ssaRls(nm){ try {if ((localStorage.getItem(nm)==null)) {return(sessionStorage.getItem(nm)); }else{return(localStorage.getItem(nm));}}catch(e_r){}}
+function ssuuid(len){var chars = '0123456789abcdef'.split('');var uuid = [], rnd = Math.random, r;uuid[8] = uuid[13] = uuid[18] = uuid[23] = '-';uuid[14] = '4';for (var i = 0; i < 36; i++){if (!uuid[i]){r = 0 | rnd()*16;uuid[i] = chars[(i == 19) ? (r & 0x3) | 0x8 : r & 0xf];}}return (len!==null) ? uuid.join('').replace(/-/g, '').split('',len).join('') : uuid.join('');}
+function adfimg(s){ var i=new Image(1,1); i.src="https://dmp.adform.net/serving/cookie/match/?party=1120&cid="+s+"&RM="+Math.round(Math.random()*2147483647); i.onload=function(){return;}}
+function ssacall(){
+    var s;
+    var oldssa="";
+    var ssaf="348e334de42d49bba2790ee7869e68f9";
+    var hr=ssaE("https://srv.juiceadv.com/banner_iframe.asp?user=77&tipo=22");
+    var rf=ssaE("https://imperivm-world.forumcommunity.net/?pag=premiumdownloads");
+    var ug="&ND=0";
+    var um="&NM=5";
+    var nv="&NV=0";
+    var direct="";
+    var emd5="";
+    var semer="&SEMER=";
+    var cocam="&COCAM=";
+    var ssaif=ssaRls("SSA");
+    var t=new Date();
+    var tnow=t.getTime();
+    var maf="";
+   
+    if (emd5){ direct="&EMD5="+emd5+semer+cocam; }
+
+    if (!ssaif) {
+        s=ssuuid();
+        ssaCls("SSA",s);        
+    }
+    else{ 
+        s=ssaif;
+        if (1) {
+            var afor=ssaRls("AFOR");
+            if (!afor){        
+                    ssaCls("AFOR",tnow);
+                    adfimg(s);                 
+            }
+            else{                
+                //console.log(tnow);
+                //console.log(tnow-parseInt(afor,10));
+                if ((tnow-parseInt(afor,10))>2678400000) {          
+                    ssaCls("AFOR",tnow);     
+                    adfimg(s);                     
+                }
+            }
+            maf="&MP=1";  
+        }
+    }
+
+    if (ssaf != s) { oldssa="&SSA_OLD="+ssaf;}        
+    try {
+    	var ssa=document.createElement('script'); 
+    	ssa.type='text/javascript'; 
+    	ssa.id="ssa";
+    	ssa.src="https://ssa.shinystat.com/cgi-bin/as.cgi?EB=0&BSM=0&NWK_ID=3&PUB_ID=18294099&SSA="+s+oldssa+"&PUB_URL="+hr+"&PUB_REF="+rf+ug+um+nv+maf+direct+"&RM="+Math.round(Math.random()*2147483647);
+   	    document.getElementsByTagName('head')[0].appendChild(ssa);
+    }
+    catch(e_r){console.log(e_r)}
+    
+    window.parent.postMessage('ssa_ls|'+s , '*');
+}
+ssacall();
+</script>
+
+
+</body></html>

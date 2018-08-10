@@ -1,0 +1,20 @@
+
+/* Libero COMSCORE data site 20140513144000 */
+var libero_comscore_csobj = {
+   "defaultCn" : "partners.others",
+   "site" : "partners",
+   "version" : "20140513144000",
+   "cn" : [
+      {
+         "n" : "errors.partners",
+         "v" : "^(4|5)\\d\\d$",
+         "id" : "libero_comscore_error",
+         "t" : "js"
+      },
+      {
+         "n" : "partners.virgilio.forumfree",
+         "v" : "^\\/?",
+         "t" : "path"
+      }
+   ]
+};

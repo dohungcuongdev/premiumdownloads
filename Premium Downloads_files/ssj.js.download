@@ -1,0 +1,12 @@
+if (1) {var p=encodeURIComponent(window.location.href);
+if (self != top) { try { p=encodeURIComponent(document.referrer);} catch(er){} }
+var pd=p.toLowerCase().indexOf("%3a%2f%2f");
+if (pd>0) { var pu=p.toLowerCase().substr(pd+9).indexOf("%2f");
+if (pu<0) pu=p.toLowerCase().substr(pd+9).indexOf("%3f");
+if (pu>0) p=p.substr(0, pd+9+pu);}
+var ssa=document.createElement('script');
+ssa.type='text/javascript';
+ssa.id="_ssif"+Math.round(Math.random()*2147483647);
+ssa.async="async";
+ssa.src="//codicebusiness.shinystat.com/cgi-bin/getcod.cgi?USER=TRO-juicets&NODW=yes&PAG="+p+"&RM="+Math.round(Math.random()*2147483647);
+document.getElementsByTagName('head')[0].appendChild(ssa);}
